@@ -1,0 +1,145 @@
+<!doctype html> 
+<html lang="es"> 
+<head> 
+	<meta charset="UTF-8" />
+    <meta name="viewport" content="user-scalable=no"/>
+    <title>Phaser - Estados</title>
+	<script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+
+#gamecontrols{
+     width:132px;
+     position:absolute;
+     top:320px;
+     left:20px;
+     opacity:0.4;
+     filter:alpha(opacity=40);	
+}
+.control{
+     border:1px solid #777777;
+     margin:1px;
+     background-color:#444444;
+     width:40px;
+     height:40px;
+     float:left;
+}
+
+.empty{
+     border:1px solid transparent;
+     margin:1px;
+     width:40px;
+     height:40px;
+     float:left;
+}
+
+.up{
+	background-image: url('up.png');
+}
+
+.left{
+	background-image: url('left.png');
+}
+
+.right{
+	background-image: url('right.png');
+}
+
+.down{
+	background-image: url('down.png');
+}
+
+.action{
+	background-image: url('action.png');
+}
+
+.undo{
+	background-image: url('undo.png');
+}
+
+.restart{
+	background-image: url('restart.png');
+}
+
+.dragme{
+	background-image: url('dragme.png');
+}
+
+    </style>
+</head>
+<body>
+
+<div id="gameDic"></div>
+
+<div id = "gamecontrols">                                   
+	<div class = "empty"></div>                            
+     <div class = "control up" id = "ctrl_38"></div>        
+     <div class = "empty"></div>                     
+     <div class = "control left" id = "ctrl_37"></div>      
+     <div class = "control action" id = "ctrl_88"></div>    
+     <div class = "control right" id = "ctrl_39"></div>     
+     <div class = "empty" id = "ctrl_90"></div>      
+     <div class = "control down" id = "ctrl_40"></div>      
+     <div class = "empty" id = "ctrl_82"></div>   
+     <div style = "clear:both"></div>                       
+</div>
+
+
+</body>
+
+
+<script>
+</script>
+<script type="text/javascript" src="./js/boot.js"></script>
+<script type="text/javascript" src="./js/load.js"></script>
+<script type="text/javascript" src="./js/menu.js"></script>
+<script type="text/javascript" src="./js/play.js"></script>
+<script type="text/javascript" src="./js/win.js"></script>
+<script type="text/javascript" src="./js/game.js"></script>
+
+<script src = "http://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+
+
+$(document).ready(function(){
+
+  var mouseStillDown = false;
+
+  $('.control').mousedown(function() {
+    do_something(this);
+  }).mouseup(function() {
+    clearInterval(mouseStillDown);
+    mouseStillDown = false;
+  });
+
+  function do_something(obj) {
+
+    // add some code here that repeats while mouse down
+
+       var k = $(obj).attr("id").split("_");
+       var keyPressed = parseInt(k[1]);
+       if(game.state.current == 'menu'){
+            game.state.start('play'); 
+       } else if(game.state.current=='play'){
+            playState.test(keyPressed);
+       }
+
+    if (!mouseStillDown) {
+
+        mouseStillDown = setInterval(function(){
+            do_something(obj); 
+        }, 1000);
+    }
+
+  }
+
+});
+
+
+
+</script>
+
+
+</html>
